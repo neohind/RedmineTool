@@ -42,6 +42,7 @@ namespace RedmineTool.UI
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
             this.cmbAssignee = new System.Windows.Forms.ComboBox();
             this.lblUpperIssueName = new System.Windows.Forms.Label();
             this.btnBrowse = new System.Windows.Forms.Button();
@@ -55,7 +56,6 @@ namespace RedmineTool.UI
             this.label3 = new System.Windows.Forms.Label();
             this.cmbProjects = new System.Windows.Forms.ComboBox();
             this.chkListWatchers = new System.Windows.Forms.CheckedListBox();
-            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -95,7 +95,7 @@ namespace RedmineTool.UI
             this.txtDesciption.Multiline = true;
             this.txtDesciption.Name = "txtDesciption";
             this.txtDesciption.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDesciption.Size = new System.Drawing.Size(557, 449);
+            this.txtDesciption.Size = new System.Drawing.Size(557, 447);
             this.txtDesciption.TabIndex = 2;
             // 
             // txtEstimatedDate
@@ -193,7 +193,7 @@ namespace RedmineTool.UI
             this.splitContainer2.Panel2.Controls.Add(this.txtUpperIssueId);
             this.splitContainer2.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Panel2_Paint);
             this.splitContainer2.Size = new System.Drawing.Size(573, 643);
-            this.splitContainer2.SplitterDistance = 546;
+            this.splitContainer2.SplitterDistance = 544;
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 5;
             // 
@@ -201,20 +201,20 @@ namespace RedmineTool.UI
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 513F));
             this.tableLayoutPanel1.Controls.Add(this.txtDesciption, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.txtSubject, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label9, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 5);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(563, 536);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(563, 534);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // panel1
@@ -223,7 +223,7 @@ namespace RedmineTool.UI
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 494);
+            this.panel1.Location = new System.Drawing.Point(3, 492);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(557, 39);
             this.panel1.TabIndex = 3;
@@ -247,6 +247,16 @@ namespace RedmineTool.UI
             this.btnSave.Text = "저장";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // label9
+            // 
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.Location = new System.Drawing.Point(3, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(44, 34);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "제목";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cmbAssignee
             // 
@@ -370,16 +380,6 @@ namespace RedmineTool.UI
             this.chkListWatchers.Name = "chkListWatchers";
             this.chkListWatchers.Size = new System.Drawing.Size(204, 424);
             this.chkListWatchers.TabIndex = 0;
-            // 
-            // label9
-            // 
-            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(3, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(44, 34);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "제목";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FrmAddNewIssueDialog
             // 

@@ -54,8 +54,11 @@ namespace RedmineTool.UI
             if (nSelectedProjectId > -1)
             {
                 m_selectedProject = RedmineConnector.Current.GetProjectById(nSelectedProjectId);
-                cmbProjects.SelectedIndex = m_selectedProject.Index;
-                lblProjectPath.Text = m_selectedProject.ProjectPathByString;
+                if (m_selectedProject != null)
+                {
+                    cmbProjects.SelectedIndex = m_selectedProject.Index;
+                    lblProjectPath.Text = m_selectedProject.ProjectPathByString;
+                }
             }
 
 
