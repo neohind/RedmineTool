@@ -22,6 +22,7 @@ namespace RedmineTool
         private List<RedmineProject> m_aryAllProjects = null;
         private List<RedmineTracker> m_aryAllTrackers = null;
         private List<IssueStatus> m_aryIssueStatus = null;
+        private List<RedmineIssue> m_aryAllIssues = null;
 
         
 
@@ -66,6 +67,7 @@ namespace RedmineTool
             m_aryAllTrackers = new List<RedmineTracker>();
             m_aryAllUsers = new List<RedmineUser>();
             m_aryIssueStatus = new List<IssueStatus>();
+            m_aryAllIssues = new List<RedmineIssue>();
         }
 
         
@@ -92,8 +94,6 @@ namespace RedmineTool
                 User user = m_manager.GetCurrentUser();
                 ConfigManager.Current.CurrentLoginUser = user.Login;
                 ConfigManager.Current.CurrentLoginUserId = user.Id;
-
-                
             }
             catch (System.Net.WebException ex)
             {
@@ -144,8 +144,13 @@ namespace RedmineTool
                 if (curUser != null)
                     sAssinee = curUser.Login;
             }
-
-            m_aryIssueStatus = m_manager.GetObjects<IssueStatus>();
+            try
+            {
+                m_aryIssueStatus = m_manager.GetObjects<IssueStatus>();
+            }catch(Exception ex)
+            {
+                log.Error(ex);
+            }
 
             return sResult;
         }
@@ -188,15 +193,21 @@ namespace RedmineTool
                 parameters.Add("project_id", nProjectId.ToString());
 
 
-            List<Issue> issues = m_manager.GetObjects<Issue>(parameters);
-
-            if (issues != null)
+            try
             {
-                foreach (Issue issue in issues)
+                List<Issue> issues = m_manager.GetObjects<Issue>(parameters);
+
+                if (issues != null)
                 {
-                    RedmineIssue curIssue = new RedmineIssue(issue);
-                    aryResult.Add(curIssue);
+                    foreach (Issue issue in issues)
+                    {
+                        RedmineIssue curIssue = new RedmineIssue(issue);
+                        aryResult.Add(curIssue);
+                    }
                 }
+            }catch(Exception ex)
+            {
+                log.Error(ex);
             }
 
             return aryResult;
@@ -212,16 +223,22 @@ namespace RedmineTool
             if (nProjectId > -1)
                 parameters.Add("project_id", nProjectId.ToString());
 
-
-            List<Issue> issues = m_manager.GetObjects<Issue>(parameters);
-
-            if (issues != null)
+            try
             {
-                foreach (Issue issue in issues)
+                List<Issue> issues = m_manager.GetObjects<Issue>(parameters);
+
+                if (issues != null)
                 {
-                    RedmineIssueSimple curIssue = new RedmineIssueSimple(issue);
-                    aryResult.Add(curIssue);
+                    foreach (Issue issue in issues)
+                    {
+                        RedmineIssueSimple curIssue = new RedmineIssueSimple(issue);
+                        aryResult.Add(curIssue);
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
             }
 
             return aryResult;
@@ -247,28 +264,39 @@ namespace RedmineTool
 
             List<Issue> aryAllIssues = m_manager.GetObjects<Issue>(parameters);
 
-            foreach(Issue issue in aryAllIssues)
+            if (aryAllIssues != null)
             {
-                log.Debug($"issue : {issue.Subject}, {issue.EstimatedHours}");
-                if (issue.StartDate != null)
+                foreach (Issue issue in aryAllIssues)
                 {
-                    DateTime dtStart = Convert.ToDateTime(issue.StartDate);
-                    double fEstimatedHour = Convert.ToDouble(issue.EstimatedHours);
-                    int nDays = Convert.ToInt32(fEstimatedHour / 8) - 1;
-
-                    DateTime dtEnd = dtStart;
-                    for (int i = 0; i < nDays ; i++)
+                    log.Debug($"issue : {issue.Subject}, {issue.EstimatedHours}");
+                    if (issue.StartDate != null)
                     {
-                        dtEnd = dtEnd.AddDays(1);
-                        if (dtEnd.DayOfWeek == DayOfWeek.Saturday
-                            || dtEnd.DayOfWeek == DayOfWeek.Sunday)
-                            i--;
-                    }
+                        DateTime dtStart = Convert.ToDateTime(issue.StartDate);
+                        double fEstimatedHour = Convert.ToDouble(issue.EstimatedHours);
+                        int nDays = Convert.ToInt32(fEstimatedHour / 8) - 1;
 
-                    if (Convert.ToDateTime(issue.DueDate) != dtEnd)
-                    {
-                        issue.DueDate = dtEnd;
-                        m_manager.UpdateObject<Issue>(Convert.ToString(issue.Id), issue);
+                        DateTime dtEnd = dtStart;
+                        for (int i = 0; i < nDays; i++)
+                        {
+                            dtEnd = dtEnd.AddDays(1);
+                            if (dtEnd.DayOfWeek == DayOfWeek.Saturday
+                                || dtEnd.DayOfWeek == DayOfWeek.Sunday)
+                                i--;
+                        }
+
+                        if (Convert.ToDateTime(issue.DueDate) != dtEnd)
+                        {
+                            issue.DueDate = dtEnd;
+
+                            try
+                            {
+                                m_manager.UpdateObject<Issue>(Convert.ToString(issue.Id), issue);
+                            }
+                            catch (Exception ex)
+                            {
+                                log.Error(ex);
+                            }
+                        }
                     }
                 }
             }
