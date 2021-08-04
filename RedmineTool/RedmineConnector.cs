@@ -25,7 +25,7 @@ namespace RedmineTool
 
         
 
-        private RedmineManager m_manager = null;
+        private RedmineManager m_manager = null;        
 
         public static RedmineConnector Current
         {
@@ -91,6 +91,7 @@ namespace RedmineTool
                 m_manager = new RedmineManager(sUrl, sApiKey);
                 User user = m_manager.GetCurrentUser();
                 ConfigManager.Current.CurrentLoginUser = user.Login;
+                ConfigManager.Current.CurrentLoginUserId = user.Id;
 
                 
             }
@@ -230,6 +231,47 @@ namespace RedmineTool
         {
             Issue newIssue = m_manager.CreateObject<Issue>(issue);
             return newIssue;
+        }
+
+        internal void RebuildDueDate()
+        {
+            // utf8=%E2%9C%93&set_filter=1&sort=id%3Adesc&f%5B%5D=status_id&op%5Bstatus_id%5D=o&f%5B%5D=author_id
+            // &op%5Bauthor_id%5D=%3D&v%5Bauthor_id%5D%5B%5D=5&f%5B%5D=estimated_hours
+            // &op%5Bestimated_hours%5D=*&f%5B%5D=&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=priority
+            // &c%5B%5D=subject&c%5B%5D=start_date&c%5B%5D=due_date&c%5B%5D=assigned_to&group_by=&t%5B%5D=
+
+            NameValueCollection parameters = new NameValueCollection();
+            parameters.Add("author_id", Convert.ToString(ConfigManager.Current.CurrentLoginUserId));
+            parameters.Add("estimated_hours", "*");
+            parameters.Add("start_date", "*");
+
+            List<Issue> aryAllIssues = m_manager.GetObjects<Issue>(parameters);
+
+            foreach(Issue issue in aryAllIssues)
+            {
+                log.Debug($"issue : {issue.Subject}, {issue.EstimatedHours}");
+                if (issue.StartDate != null)
+                {
+                    DateTime dtStart = Convert.ToDateTime(issue.StartDate);
+                    double fEstimatedHour = Convert.ToDouble(issue.EstimatedHours);
+                    int nDays = Convert.ToInt32(fEstimatedHour / 8) - 1;
+
+                    DateTime dtEnd = dtStart;
+                    for (int i = 0; i < nDays ; i++)
+                    {
+                        dtEnd = dtEnd.AddDays(1);
+                        if (dtEnd.DayOfWeek == DayOfWeek.Saturday
+                            || dtEnd.DayOfWeek == DayOfWeek.Sunday)
+                            i--;
+                    }
+
+                    if (Convert.ToDateTime(issue.DueDate) != dtEnd)
+                    {
+                        issue.DueDate = dtEnd;
+                        m_manager.UpdateObject<Issue>(Convert.ToString(issue.Id), issue);
+                    }
+                }
+            }
         }
     }
 }

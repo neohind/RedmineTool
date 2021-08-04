@@ -35,6 +35,7 @@ namespace RedmineTool.UI
             this.btnNewIssue = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnRebuildDueDate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,13 +78,24 @@ namespace RedmineTool.UI
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // btnRebuildDueDate
+            // 
+            this.btnRebuildDueDate.Location = new System.Drawing.Point(23, 375);
+            this.btnRebuildDueDate.Name = "btnRebuildDueDate";
+            this.btnRebuildDueDate.Size = new System.Drawing.Size(75, 44);
+            this.btnRebuildDueDate.TabIndex = 3;
+            this.btnRebuildDueDate.Text = "완료기한 Rebuilder";
+            this.btnRebuildDueDate.UseVisualStyleBackColor = true;
+            this.btnRebuildDueDate.Click += new System.EventHandler(this.btnRebuildDueDate_Click);
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(978, 445);
+            this.Controls.Add(this.btnRebuildDueDate);
             this.Controls.Add(this.btnNewIssue);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
@@ -103,6 +115,7 @@ namespace RedmineTool.UI
         private System.Windows.Forms.Button btnNewIssue;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Button btnRebuildDueDate;
     }
 }
 

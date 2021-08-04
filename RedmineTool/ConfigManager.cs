@@ -36,6 +36,12 @@ namespace RedmineTool
             set;
         }
 
+        public int CurrentLoginUserId
+        {
+            get;
+            set;
+        }
+
         public string RedmineUrl
         {
             get
