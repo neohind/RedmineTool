@@ -16,8 +16,7 @@ namespace RedmineTool.UI
     public partial class FrmAddNewIssueDialog : Form
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
-
-        private List<RedmineIssueSimple> m_aryAllIssues = null;
+        
         private RedmineProject m_selectedProject = null;
 
         public FrmAddNewIssueDialog()
@@ -122,6 +121,7 @@ namespace RedmineTool.UI
             ConfigManager.Current.DefaultNewIssue_Tracker = redmineTracker.TrackerId;
         }
 
+        
         private void chkListWatchers_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             RedmineUser curUser = null;
@@ -143,10 +143,14 @@ namespace RedmineTool.UI
                 else
                     arySelectedWatchers.Remove(curUser.LoginName);
             }
-
             ConfigManager.Current.DefaultNewIssue_Watchers = arySelectedWatchers.ToArray();
         }
 
+        /// <summary>
+        /// 프로젝트를 직접 찾을 때 사용하는 Browser 버튼에 대한 이벤트 핸들러
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             int nProjectIndex = cmbProjects.SelectedIndex;
@@ -155,8 +159,6 @@ namespace RedmineTool.UI
                 return;
 
             RedmineProject curProject = cmbProjects.Items[nProjectIndex] as RedmineProject;
-
-
             FrmIssueListDialog dlg = new FrmIssueListDialog();
             dlg.SetupViewer(curProject.ProjectId, "open");
 
@@ -170,10 +172,7 @@ namespace RedmineTool.UI
             }
         }
 
-        private void splitContainer2_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        
 
         private void txtUpperIssueId_TextChanged(object sender, EventArgs e)
         {
@@ -188,8 +187,13 @@ namespace RedmineTool.UI
                     if(foundIssue != null)
                         lblUpperIssueName.Text = foundIssue.DisplayName;                    
                 }
-                catch
+                catch(FormatException)
                 {
+                    log.Error("Value is invalid! - " + txtUpperIssueId.Text);
+                }
+                catch(Exception ex)
+                {
+                    log.Error(ex);
                 }
             }
         }
@@ -266,14 +270,27 @@ namespace RedmineTool.UI
                 }
             }
 
-
+            if (chkListWatchers.CheckedItems.Count > 0)
+            {
+                List<Watcher> aryWatcher = new List<Watcher>();
+                foreach (var item in chkListWatchers.CheckedItems)
+                {
+                    RedmineUser curUser = item as RedmineUser;
+                    Watcher watcher = IdentifiableName.Create<Watcher>(curUser.UserInfo.Id);
+                    aryWatcher.Add(watcher);
+                }
+                newIssue.Watchers = aryWatcher;
+            }
 
             RedmineConnector.Current.CreateIssue(newIssue);
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

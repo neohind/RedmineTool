@@ -191,7 +191,7 @@ namespace RedmineTool.UI
             this.splitContainer2.Panel2.Controls.Add(this.label2);
             this.splitContainer2.Panel2.Controls.Add(this.label1);
             this.splitContainer2.Panel2.Controls.Add(this.txtUpperIssueId);
-            this.splitContainer2.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Panel2_Paint);
+            
             this.splitContainer2.Size = new System.Drawing.Size(573, 643);
             this.splitContainer2.SplitterDistance = 544;
             this.splitContainer2.SplitterWidth = 6;
