@@ -282,6 +282,12 @@ namespace RedmineTool.UI
                 newIssue.Watchers = aryWatcher;
             }
 
+            if (cmbTracker.SelectedIndex > -1)
+            {
+                RedmineTracker selectedTracker = cmbTracker.Items[cmbTracker.SelectedIndex] as RedmineTracker;
+                newIssue.Tracker = IdentifiableName.Create<Tracker>(selectedTracker.TrackerId);
+            }
+
             RedmineConnector.Current.CreateIssue(newIssue);
             this.DialogResult = DialogResult.OK;
             this.Close();
