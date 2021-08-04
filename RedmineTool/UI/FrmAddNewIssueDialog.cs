@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -79,6 +80,7 @@ namespace RedmineTool.UI
             if (nCurUserIndex > -1)
                 cmbAssignee.SelectedIndex = nCurUserIndex;
 
+            chkOpenWebPageOpen.Checked = ConfigManager.Current.DefaultNewIssue_IsOpenTracker;
 
             // 각 컨트롤에 Redmine 관련된 데이터를 처리하고, 동시에 이전에 선택된 내용들을
             // 선택한 뒤, 아래와 같은 이벤트들을 연결해야 한다. 그렇지 않으면, 
@@ -87,6 +89,7 @@ namespace RedmineTool.UI
             this.cmbAssignee.SelectedIndexChanged += new System.EventHandler(this.cmbAssignee_SelectedIndexChanged);
             this.cmbTracker.SelectedIndexChanged += new System.EventHandler(this.cmbTracker_SelectedIndexChanged);
             this.chkListWatchers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkListWatchers_ItemCheck);
+            this.chkOpenWebPageOpen.CheckedChanged += new System.EventHandler(this.chkOpenWebPageOpen_CheckedChanged);
         }
 
         private void cmbProjects_SelectedIndexChanged(object sender, EventArgs e)
@@ -121,7 +124,10 @@ namespace RedmineTool.UI
             ConfigManager.Current.DefaultNewIssue_Tracker = redmineTracker.TrackerId;
         }
 
-        
+        private void chkOpenWebPageOpen_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigManager.Current.DefaultNewIssue_IsOpenTracker = chkOpenWebPageOpen.Checked;
+        }
         private void chkListWatchers_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             RedmineUser curUser = null;
@@ -219,6 +225,7 @@ namespace RedmineTool.UI
             }
         }
 
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             string sSubject = txtSubject.Text;
@@ -288,7 +295,20 @@ namespace RedmineTool.UI
                 newIssue.Tracker = IdentifiableName.Create<Tracker>(selectedTracker.TrackerId);
             }
 
-            RedmineConnector.Current.CreateIssue(newIssue);
+            Issue createdIssue = RedmineConnector.Current.CreateIssue(newIssue);
+            
+
+            if(chkOpenWebPageOpen.Checked)
+            {
+                UriBuilder builder = new UriBuilder(ConfigManager.Current.RedmineUrl);
+                builder.Path = "issues/" + createdIssue.Id.ToString();
+                string sUrl = builder.ToString();
+
+                ProcessStartInfo info = new ProcessStartInfo(sUrl);
+                info.UseShellExecute = true;
+                Process.Start(info).WaitForExit(5000);
+            }
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -298,5 +318,7 @@ namespace RedmineTool.UI
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        
     }
 }

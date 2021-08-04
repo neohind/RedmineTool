@@ -226,9 +226,10 @@ namespace RedmineTool
             return aryResult;
         }
 
-        internal void CreateIssue(Issue issue)
+        internal Issue CreateIssue(Issue issue)
         {
-            m_manager.CreateObject<Issue>(issue);
+            Issue newIssue = m_manager.CreateObject<Issue>(issue);
+            return newIssue;
         }
     }
 }

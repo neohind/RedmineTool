@@ -157,6 +157,31 @@ namespace RedmineTool
             }
         }
 
+        public bool DefaultNewIssue_IsOpenTracker {
+            get
+            {
+                string sValue = GetDefaultValue("DefaultNewIssue", "IsOpenBrowser");
+                bool bResult = false;
+                try
+                {
+                    bResult = Convert.ToBoolean(sValue);
+                }
+                catch (Exception ex)
+                {
+                    DefaultNewIssue_Tracker = -1;
+                    log.Error(ex);
+                }
+                if (string.IsNullOrEmpty(sValue))
+                    return false;
+
+                return bResult;
+            }
+            internal set
+            {
+                SetDefaultValue("DefaultNewIssue", "IsOpenBrowser", value.ToString());
+            }
+        }
+
 
         public PrivateFontCollection Fonts
         {
@@ -165,6 +190,8 @@ namespace RedmineTool
                 return m_fontCollection;
             }
         }
+
+        
 
         private IntPtr m_font = IntPtr.Zero;
 

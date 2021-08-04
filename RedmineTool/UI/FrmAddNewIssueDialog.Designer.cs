@@ -56,6 +56,7 @@ namespace RedmineTool.UI
             this.label3 = new System.Windows.Forms.Label();
             this.cmbProjects = new System.Windows.Forms.ComboBox();
             this.chkListWatchers = new System.Windows.Forms.CheckedListBox();
+            this.chkOpenWebPageOpen = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -95,7 +96,7 @@ namespace RedmineTool.UI
             this.txtDesciption.Multiline = true;
             this.txtDesciption.Name = "txtDesciption";
             this.txtDesciption.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDesciption.Size = new System.Drawing.Size(557, 447);
+            this.txtDesciption.Size = new System.Drawing.Size(557, 445);
             this.txtDesciption.TabIndex = 2;
             // 
             // txtEstimatedDate
@@ -191,9 +192,8 @@ namespace RedmineTool.UI
             this.splitContainer2.Panel2.Controls.Add(this.label2);
             this.splitContainer2.Panel2.Controls.Add(this.label1);
             this.splitContainer2.Panel2.Controls.Add(this.txtUpperIssueId);
-            
             this.splitContainer2.Size = new System.Drawing.Size(573, 643);
-            this.splitContainer2.SplitterDistance = 544;
+            this.splitContainer2.SplitterDistance = 542;
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 5;
             // 
@@ -214,23 +214,24 @@ namespace RedmineTool.UI
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(563, 534);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(563, 532);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // panel1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
+            this.panel1.Controls.Add(this.chkOpenWebPageOpen);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 492);
+            this.panel1.Location = new System.Drawing.Point(3, 490);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(557, 39);
             this.panel1.TabIndex = 3;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(297, 3);
+            this.btnCancel.Location = new System.Drawing.Point(444, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 31);
             this.btnCancel.TabIndex = 4;
@@ -240,7 +241,7 @@ namespace RedmineTool.UI
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(169, 3);
+            this.btnSave.Location = new System.Drawing.Point(18, 3);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 31);
             this.btnSave.TabIndex = 3;
@@ -381,6 +382,16 @@ namespace RedmineTool.UI
             this.chkListWatchers.Size = new System.Drawing.Size(204, 424);
             this.chkListWatchers.TabIndex = 0;
             // 
+            // chkOpenWebPageOpen
+            // 
+            this.chkOpenWebPageOpen.AutoSize = true;
+            this.chkOpenWebPageOpen.Location = new System.Drawing.Point(100, 10);
+            this.chkOpenWebPageOpen.Name = "chkOpenWebPageOpen";
+            this.chkOpenWebPageOpen.Size = new System.Drawing.Size(169, 21);
+            this.chkOpenWebPageOpen.TabIndex = 5;
+            this.chkOpenWebPageOpen.Text = "저장시 해당 Page Open";
+            this.chkOpenWebPageOpen.UseVisualStyleBackColor = true;            
+            // 
             // FrmAddNewIssueDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -406,6 +417,7 @@ namespace RedmineTool.UI
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -439,5 +451,6 @@ namespace RedmineTool.UI
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox chkOpenWebPageOpen;
     }
 }
