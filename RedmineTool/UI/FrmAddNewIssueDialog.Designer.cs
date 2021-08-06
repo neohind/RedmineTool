@@ -40,6 +40,7 @@ namespace RedmineTool.UI
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkOpenWebPageOpen = new System.Windows.Forms.CheckBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -56,7 +57,6 @@ namespace RedmineTool.UI
             this.label3 = new System.Windows.Forms.Label();
             this.cmbProjects = new System.Windows.Forms.ComboBox();
             this.chkListWatchers = new System.Windows.Forms.CheckedListBox();
-            this.chkOpenWebPageOpen = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -96,7 +96,7 @@ namespace RedmineTool.UI
             this.txtDesciption.Multiline = true;
             this.txtDesciption.Name = "txtDesciption";
             this.txtDesciption.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDesciption.Size = new System.Drawing.Size(557, 445);
+            this.txtDesciption.Size = new System.Drawing.Size(557, 443);
             this.txtDesciption.TabIndex = 2;
             // 
             // txtEstimatedDate
@@ -193,7 +193,7 @@ namespace RedmineTool.UI
             this.splitContainer2.Panel2.Controls.Add(this.label1);
             this.splitContainer2.Panel2.Controls.Add(this.txtUpperIssueId);
             this.splitContainer2.Size = new System.Drawing.Size(573, 643);
-            this.splitContainer2.SplitterDistance = 542;
+            this.splitContainer2.SplitterDistance = 540;
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 5;
             // 
@@ -214,7 +214,7 @@ namespace RedmineTool.UI
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(563, 532);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(563, 530);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // panel1
@@ -224,10 +224,20 @@ namespace RedmineTool.UI
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 490);
+            this.panel1.Location = new System.Drawing.Point(3, 488);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(557, 39);
             this.panel1.TabIndex = 3;
+            // 
+            // chkOpenWebPageOpen
+            // 
+            this.chkOpenWebPageOpen.AutoSize = true;
+            this.chkOpenWebPageOpen.Location = new System.Drawing.Point(100, 10);
+            this.chkOpenWebPageOpen.Name = "chkOpenWebPageOpen";
+            this.chkOpenWebPageOpen.Size = new System.Drawing.Size(169, 21);
+            this.chkOpenWebPageOpen.TabIndex = 5;
+            this.chkOpenWebPageOpen.Text = "저장시 해당 Page Open";
+            this.chkOpenWebPageOpen.UseVisualStyleBackColor = true;
             // 
             // btnCancel
             // 
@@ -381,16 +391,6 @@ namespace RedmineTool.UI
             this.chkListWatchers.Name = "chkListWatchers";
             this.chkListWatchers.Size = new System.Drawing.Size(204, 424);
             this.chkListWatchers.TabIndex = 0;
-            // 
-            // chkOpenWebPageOpen
-            // 
-            this.chkOpenWebPageOpen.AutoSize = true;
-            this.chkOpenWebPageOpen.Location = new System.Drawing.Point(100, 10);
-            this.chkOpenWebPageOpen.Name = "chkOpenWebPageOpen";
-            this.chkOpenWebPageOpen.Size = new System.Drawing.Size(169, 21);
-            this.chkOpenWebPageOpen.TabIndex = 5;
-            this.chkOpenWebPageOpen.Text = "저장시 해당 Page Open";
-            this.chkOpenWebPageOpen.UseVisualStyleBackColor = true;            
             // 
             // FrmAddNewIssueDialog
             // 

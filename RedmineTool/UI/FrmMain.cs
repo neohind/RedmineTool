@@ -18,6 +18,8 @@ namespace RedmineTool.UI
         public FrmMain()
         {
             InitializeComponent();
+            dataGridView1.DataSource = RedmineConnector.Current.AllIssues;
+
             m_workerRebuildDueDate = new BackgroundWorker();
             m_workerRebuildDueDate.DoWork += workerRebuildDueDate_DoWork;
             m_workerRebuildDueDate.RunWorkerCompleted += workerRebuildDueDate_RunWorkerCompleted;
@@ -49,6 +51,11 @@ namespace RedmineTool.UI
         private void workerRebuildDueDate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             MessageBox.Show("종료 예정 처리 완료");
+        }
+
+        private void btnRefreshIssues_Click(object sender, EventArgs e)
+        {
+            RedmineConnector.Current.RefreshIssues();
         }
     }
 }

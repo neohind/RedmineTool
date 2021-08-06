@@ -1,6 +1,7 @@
 ﻿using Redmine.Net.Api.Types;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace RedmineTool.Models
         protected Issue m_curIssueInfo = null;
         protected List<int> m_aryChildIssuesId = null;
 
+        [Browsable(false)]
         public Issue IssueInfo
         {
             get
@@ -50,7 +52,9 @@ namespace RedmineTool.Models
         {
             get
             {
-                return m_curIssueInfo.AssignedTo.Id;
+                if(m_curIssueInfo.AssignedTo != null)
+                    return m_curIssueInfo.AssignedTo.Id;
+                return 0;
             }
         }
 
@@ -202,37 +206,6 @@ namespace RedmineTool.Models
             set; 
         }
 
-
-        public RedmineIssue(Issue redmineIssue)
-        {
-            m_curIssueInfo = redmineIssue;
-            AllowdStatuses = new List<IssueAllowedStatus>();
-            if(m_curIssueInfo.AllowedStatuses != null)
-                AllowdStatuses.AddRange(m_curIssueInfo.AllowedStatuses);
-
-            IssueStatus foundStatus = RedmineConnector.Current.AllStatus.Find(m => m.Id == this.StatusId);
-            if (foundStatus != null)
-                IsClosed = foundStatus.IsClosed;
-
-
-            m_aryChildIssuesId = new List<int>();
-            if(m_curIssueInfo.Children != null)
-            {
-                foreach(IssueChild childIssue in m_curIssueInfo.Children)
-                {
-                    m_aryChildIssuesId.Add(childIssue.Id);
-                }
-            }
-
-        }
-
-        public override string ToString()
-        {
-            return DisplayName;
-        }
-
-
-
         //
         // Summary:
         //     Gets or sets a value indicating whether [private notes].
@@ -240,6 +213,7 @@ namespace RedmineTool.Models
         // Value:
         //     true if [private notes]; otherwise, false.
         public bool PrivateNotes { get; set; }
+
         //
         // Summary:
         //     Gets or sets the custom fields.
@@ -247,6 +221,7 @@ namespace RedmineTool.Models
         // Value:
         //     The custom fields.
         public IList<IssueCustomField> CustomFields { get; set; }
+
         //
         // Summary:
         //     Gets or sets the created on.
@@ -254,6 +229,7 @@ namespace RedmineTool.Models
         // Value:
         //     The created on.
         public DateTime? CreatedOn { get; set; }
+
         //
         // Summary:
         //     Gets or sets the updated on.
@@ -261,6 +237,7 @@ namespace RedmineTool.Models
         // Value:
         //     The updated on.
         public DateTime? UpdatedOn { get; }
+
         //
         // Summary:
         //     Gets or sets the closed on.
@@ -268,10 +245,12 @@ namespace RedmineTool.Models
         // Value:
         //     The closed on.
         public DateTime? ClosedOn { get; }
+
         //
         // Summary:
         //     Gets or sets the notes.
         public string Notes { get; set; }
+
         //
         // Summary:
         //     Gets or sets the ID of the user to assign the issue to (currently no mechanism
@@ -280,7 +259,7 @@ namespace RedmineTool.Models
         // Value:
         //     The assigned to.
         public IdentifiableName AssignedTo { get; set; }
-        
+
         //
         // Summary:
         //     Gets or sets the fixed version.
@@ -288,6 +267,7 @@ namespace RedmineTool.Models
         // Value:
         //     The fixed version.
         public IdentifiableName FixedVersion { get; set; }
+
         //
         // Summary:
         //     indicate whether the issue is private or not
@@ -295,6 +275,7 @@ namespace RedmineTool.Models
         // Value:
         //     true if this issue is private; otherwise, false.
         public bool IsPrivate { get; set; }
+
         //
         // Summary:
         //     Returns the sum of spent hours of the task and all the sub tasks.
@@ -302,6 +283,7 @@ namespace RedmineTool.Models
         // Remarks:
         //     Availability starting with redmine version 3.3
         public float? TotalSpentHours { get; set; }
+
         //
         // Summary:
         //     Returns the sum of estimated hours of task and all the sub tasks.
@@ -309,6 +291,7 @@ namespace RedmineTool.Models
         // Remarks:
         //     Availability starting with redmine version 3.3
         public float? TotalEstimatedHours { get; set; }
+
         //
         // Summary:
         //     Gets or sets the journals.
@@ -316,6 +299,7 @@ namespace RedmineTool.Models
         // Value:
         //     The journals.
         public IList<Journal> Journals { get; set; }
+
         //
         // Summary:
         //     Gets or sets the change sets.
@@ -323,6 +307,7 @@ namespace RedmineTool.Models
         // Value:
         //     The change sets.
         public IList<ChangeSet> ChangeSets { get; set; }
+
         //
         // Summary:
         //     Gets or sets the attachments.
@@ -330,6 +315,7 @@ namespace RedmineTool.Models
         // Value:
         //     The attachments.
         public IList<Attachment> Attachments { get; set; }
+
         //
         // Summary:
         //     Gets or sets the issue relations.
@@ -337,7 +323,7 @@ namespace RedmineTool.Models
         // Value:
         //     The issue relations.
         public IList<IssueRelation> Relations { get; set; }
-       
+
         //
         // Summary:
         //     Gets or sets the attachments.
@@ -345,6 +331,7 @@ namespace RedmineTool.Models
         // Value:
         //     The attachment.
         public IList<Upload> Uploads { get; set; }
+
         //
         // Summary:
         //     Gets or sets the hours spent on the issue.
@@ -352,8 +339,7 @@ namespace RedmineTool.Models
         // Value:
         //     The hours spent on the issue.
         public float? SpentHours { get; set; }
-        
-     
+
 
         //
         // Summary:
@@ -398,7 +384,6 @@ namespace RedmineTool.Models
         //     The tracker.
         public IdentifiableName Tracker { get; set; }
 
-        
         //
         // Summary:
         //     Gets or sets the category.
@@ -406,5 +391,38 @@ namespace RedmineTool.Models
         // Value:
         //     The category.
         public IdentifiableName Category { get; set; }
+
+
+        public RedmineIssue(Issue redmineIssue)
+        {
+            m_curIssueInfo = redmineIssue;
+            AllowdStatuses = new List<IssueAllowedStatus>();
+            if(m_curIssueInfo.AllowedStatuses != null)
+                AllowdStatuses.AddRange(m_curIssueInfo.AllowedStatuses);
+
+            IssueStatus foundStatus = RedmineConnector.Current.AllStatus.Find(m => m.Id == this.StatusId);
+            if (foundStatus != null)
+                IsClosed = foundStatus.IsClosed;
+
+
+            m_aryChildIssuesId = new List<int>();
+            if(m_curIssueInfo.Children != null)
+            {
+                foreach(IssueChild childIssue in m_curIssueInfo.Children)
+                {
+                    m_aryChildIssuesId.Add(childIssue.Id);
+                }
+            }
+
+        }
+
+        public override string ToString()
+        {
+            return DisplayName;
+        }
+
+
+
+        
     }
 }

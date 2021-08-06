@@ -22,9 +22,7 @@ namespace RedmineTool
         private List<RedmineProject> m_aryAllProjects = null;
         private List<RedmineTracker> m_aryAllTrackers = null;
         private List<IssueStatus> m_aryIssueStatus = null;
-        private List<RedmineIssue> m_aryAllIssues = null;
-
-        
+        private List<RedmineIssue> m_aryAllIssues = null;        
 
         private RedmineManager m_manager = null;        
 
@@ -54,6 +52,10 @@ namespace RedmineTool
             get { return m_aryIssueStatus; }
         }
 
+        public List<RedmineIssue> AllIssues 
+        { 
+            get { return m_aryAllIssues; } 
+        }
 
         static RedmineConnector()
         {
@@ -152,6 +154,9 @@ namespace RedmineTool
                 log.Error(ex);
             }
 
+            RefreshIssues();
+            
+
             return sResult;
         }
 
@@ -173,7 +178,6 @@ namespace RedmineTool
             return project;
         }
 
-
         internal string GetUserLoginId(int assigneeId)
         {
             RedmineUser foundUser = m_aryAllUsers.Find(m => m.UserInfo.Id == assigneeId);
@@ -182,17 +186,13 @@ namespace RedmineTool
             return string.Empty;
         }
 
-        internal List<RedmineIssue> GetCurrentIssues(int nProjectId, string sStatus)
+        internal List<RedmineIssue> RefreshIssues()
         {
-            List<RedmineIssue> aryResult = new List<RedmineIssue>();
-
+            m_aryAllIssues.Clear();
             NameValueCollection parameters = new NameValueCollection();
-            parameters.Add("status_id", sStatus);
+            parameters.Add("status_id", "*");
 
-            if(nProjectId > -1)
-                parameters.Add("project_id", nProjectId.ToString());
-
-
+            
             try
             {
                 List<Issue> issues = m_manager.GetObjects<Issue>(parameters);
@@ -202,15 +202,15 @@ namespace RedmineTool
                     foreach (Issue issue in issues)
                     {
                         RedmineIssue curIssue = new RedmineIssue(issue);
-                        aryResult.Add(curIssue);
+                        m_aryAllIssues.Add(curIssue);
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 log.Error(ex);
             }
-
-            return aryResult;
+            return m_aryAllIssues;
         }
 
         internal List<RedmineIssueSimple> GetCurrentSimpleIssues(int nProjectId, string sStatus)
