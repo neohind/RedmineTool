@@ -20,24 +20,46 @@ namespace RedmineTool.Common.Dac
         /// <param name="mode">생성할 DB 개체 형식</param>
         /// <param name="sConnectionString">DB 연결 문자열</param>
         /// <returns></returns>
-        public static DbAgent CreateInstance(string sDatabaseAddress, string sDbUserName, string sDbUserPassword, string sDatabaseName="")
+        public static DbAgent CreateInstance(string sDatabaseAddress, string sDbUserName, string sDbUserPassword, string sDatabasePort = "3306", string sDatabaseName = "")
+        {
+            string sConnectionString = GetConnectionString(sDatabaseAddress, sDbUserName, sDbUserPassword, sDatabasePort, sDatabaseName);
+
+            DbAgent agent = new DbAgent();
+            agent.ConnectionString = sConnectionString;
+            
+            return agent;
+        }
+
+
+        static public bool CanConnect(string sDatabaseAddress, string sDbUserName, string sDbUserPassword, string sDatabasePort = "3306", string sDatabaseName = "")
+        {
+            string sConnectionString = GetConnectionString(sDatabaseAddress, sDbUserName, sDbUserPassword, sDatabasePort, sDatabaseName);
+
+            DbAgent agent = new DbAgent();
+            agent.ConnectionString = sConnectionString;
+
+            return agent.CanConnect();
+        }
+
+
+        static private string GetConnectionString(string sDatabaseAddress, string sDbUserName, string sDbUserPassword, string sDatabasePort = "3306", string sDatabaseName = "")
         {
             if (string.IsNullOrEmpty(sDatabaseName))
                 sDatabaseName = "redmine";
 
             StringBuilder sbConnectionString = new StringBuilder();
             sbConnectionString.Append($"server={sDatabaseAddress};");
+            sbConnectionString.Append($"port={sDatabasePort};");
             sbConnectionString.Append($"uid={sDbUserName};");
             sbConnectionString.Append($"pwd={sDbUserPassword};");
             sbConnectionString.Append($"database={sDatabaseName};");
+            sbConnectionString.Append(";SslMode=none;");
 
-            DbAgent agent = new DbAgent();
-            agent.ConnectionString = sbConnectionString.ToString();
-            
-            return agent;
+            return sbConnectionString.ToString();
         }
 
-        public bool CanConnect()
+
+        private bool CanConnect()
         {
             bool bResult = false;
             try

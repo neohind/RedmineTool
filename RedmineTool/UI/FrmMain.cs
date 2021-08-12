@@ -58,5 +58,12 @@ namespace RedmineTool.UI
         {
             RedmineConnector.Current.RefreshIssues();
         }
+
+        private void btnSetupD_Click(object sender, EventArgs e)
+        {
+
+            FrmSetupDatabaseDialog dlg = new FrmSetupDatabaseDialog();
+            dlg.ShowDialog();
+        }
     }
 }

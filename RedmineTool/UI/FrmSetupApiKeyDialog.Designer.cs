@@ -116,7 +116,7 @@ namespace RedmineTool.UI
             this.txtUrl.Size = new System.Drawing.Size(288, 25);
             this.txtUrl.TabIndex = 3;
             // 
-            // FrmSetupApiKey
+            // FrmSetupApiKeyDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -132,7 +132,7 @@ namespace RedmineTool.UI
             this.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "FrmSetupApiKey";
+            this.Name = "FrmSetupApiKeyDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "사이트 및 API Key 설정";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

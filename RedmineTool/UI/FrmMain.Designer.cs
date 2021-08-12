@@ -42,6 +42,7 @@ namespace RedmineTool.UI
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.btnSetupD = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -126,6 +127,7 @@ namespace RedmineTool.UI
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnSetupD);
             this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.btnRefreshIssues);
             this.splitContainer1.Panel1.Controls.Add(this.btnRebuildDueDate);
@@ -163,10 +165,10 @@ namespace RedmineTool.UI
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.treeView1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(831, 405);
+            this.tabPage2.Size = new System.Drawing.Size(831, 409);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -176,8 +178,18 @@ namespace RedmineTool.UI
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(825, 399);
+            this.treeView1.Size = new System.Drawing.Size(825, 403);
             this.treeView1.TabIndex = 0;
+            // 
+            // btnSetupD
+            // 
+            this.btnSetupD.Location = new System.Drawing.Point(17, 208);
+            this.btnSetupD.Name = "btnSetupD";
+            this.btnSetupD.Size = new System.Drawing.Size(75, 32);
+            this.btnSetupD.TabIndex = 7;
+            this.btnSetupD.Text = "DB 설정";
+            this.btnSetupD.UseVisualStyleBackColor = true;
+            this.btnSetupD.Click += new System.EventHandler(this.btnSetupD_Click);
             // 
             // FrmMain
             // 
@@ -217,6 +229,7 @@ namespace RedmineTool.UI
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.Button btnSetupD;
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using RedmineTool.Common;
+using RedmineTool.Common.Dac;
 using RedmineTool.UI;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,17 @@ namespace RedmineTool
             {
                 log.Debug(sWatcher);
             }
+
+            string sDatabaseAddress = ConfigManager.Current.DatabaseUrl;
+            string sDatabaseUserName = ConfigManager.Current.DatabaseUserName;
+            string sDatabaseUserPassword = ConfigManager.Current.DatabaseUserPassword;
+            string sDatabaseName = ConfigManager.Current.DatabaseName;
+            string sDatabasePortNo = ConfigManager.Current.DatabasePort;
+
+            ConfigManager.Current.CanConnectDb = DbAgent.CanConnect(
+                sDatabaseAddress, sDatabaseUserName, sDatabaseUserPassword, sDatabasePortNo, sDatabaseName);
+
+
 
             string sUrl = ConfigManager.Current.RedmineUrl;
             string sApiKey = ConfigManager.Current.ApiKey;

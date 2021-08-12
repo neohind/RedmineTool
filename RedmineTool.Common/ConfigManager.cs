@@ -44,20 +44,48 @@ namespace RedmineTool
             set;
         }
 
-        internal string DatabaseUrl
+        public string DatabaseUrl
         {
             get
             {
                 string sUrl = m_regkeyForApp.GetValue("DatabaseAddress") as string;
                 return sUrl;
             }
-            set
+            private set
             {
                 m_regkeyForApp.SetValue("DatabaseAddress", value);
             }
         }
 
-        internal string DatabaseUserName
+        public string DatabaseName
+        {
+            get
+            {
+                string sUrl = m_regkeyForApp.GetValue("DatabaseName") as string;
+                return sUrl;
+            }
+            private set
+            {
+                m_regkeyForApp.SetValue("DatabaseName", value);
+            }
+        }
+
+        public string DatabasePort
+        {
+            get
+            {
+                string sUrl = m_regkeyForApp.GetValue("DatabasePort") as string;
+                return sUrl;
+            }
+            private set
+            {
+                m_regkeyForApp.SetValue("DatabasePort", value);
+            }
+        }
+
+       
+
+        public string DatabaseUserName
         {
             get
             {
@@ -79,7 +107,7 @@ namespace RedmineTool
                 }
                 return sResult;
             }
-            set
+            private set
             {
                 byte[] aryApiKey = Encoding.ASCII.GetBytes(value);
                 byte[] aryEncodedApiKey
@@ -89,7 +117,7 @@ namespace RedmineTool
             }
         }
 
-        internal string DatabasePassword
+        public string DatabaseUserPassword
         {
             get
             {
@@ -110,7 +138,7 @@ namespace RedmineTool
                 }
                 return sResult;
             }
-            set
+            private set
             {
                 byte[] aryApiKey = Encoding.ASCII.GetBytes(value);
                 byte[] aryEncodedApiKey
@@ -284,9 +312,16 @@ namespace RedmineTool
             }
         }
 
+        public bool CanConnectDb 
+        { 
+            get; 
+            set; 
+        }
+
         public ConfigManager()
         {
             m_fontCollection = new PrivateFontCollection();
+            CanConnectDb = false;
 
             if (System.IO.File.Exists("D2Coding.ttc") == false)
             {
@@ -311,6 +346,17 @@ namespace RedmineTool
                 m_regkeyForApp.Dispose();
 
             m_fontCollection.Dispose();
+        }
+
+        public void SetDatabaseInfo(string sDatabaseAddress, string sDatabaseUserName, string sDatabaseUserPassword, string sDatabasePortNo, string sDatabaseName)
+        {
+            this.DatabaseName = sDatabaseName;
+            this.DatabasePort = sDatabasePortNo;
+            this.DatabaseUrl = sDatabaseAddress;
+            this.DatabaseUserName = sDatabaseUserName;
+            this.DatabaseUserPassword = sDatabaseUserPassword;
+
+            this.CanConnectDb = true;
         }
 
         private string GetDefaultValue(string sSubKeyName, string sName)
@@ -350,7 +396,6 @@ namespace RedmineTool
         {
             m_fontCollection.Dispose();
         }
-
        
     }
 }
