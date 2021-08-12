@@ -18,7 +18,7 @@ namespace RedmineTool
 
         private PrivateFontCollection m_fontCollection = null;
         private RegistryKey m_regkeyForApp = null;
-
+        private IntPtr m_font = IntPtr.Zero;
 
         static ConfigManager()
         {
@@ -44,6 +44,82 @@ namespace RedmineTool
             set;
         }
 
+        internal string DatabaseUrl
+        {
+            get
+            {
+                string sUrl = m_regkeyForApp.GetValue("DatabaseAddress") as string;
+                return sUrl;
+            }
+            set
+            {
+                m_regkeyForApp.SetValue("DatabaseAddress", value);
+            }
+        }
+
+        internal string DatabaseUserName
+        {
+            get
+            {
+                string sResult = string.Empty;
+                try
+                {
+                    string sApiKey = m_regkeyForApp.GetValue("DUN") as string;
+                    if (string.IsNullOrEmpty(sApiKey))
+                        return string.Empty;
+
+                    byte[] aryApiKey = Convert.FromBase64String(sApiKey);
+                    byte[] aryDecodedApiKey
+                        = ProtectedData.Unprotect(aryApiKey, g_aryAdditionalEntropy, DataProtectionScope.CurrentUser);
+                    sResult = Encoding.ASCII.GetString(aryDecodedApiKey);
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                }
+                return sResult;
+            }
+            set
+            {
+                byte[] aryApiKey = Encoding.ASCII.GetBytes(value);
+                byte[] aryEncodedApiKey
+                    = ProtectedData.Protect(aryApiKey, g_aryAdditionalEntropy, DataProtectionScope.CurrentUser);
+                string sEncodedApiKey = Convert.ToBase64String(aryEncodedApiKey);
+                m_regkeyForApp.SetValue("DUN", sEncodedApiKey);
+            }
+        }
+
+        internal string DatabasePassword
+        {
+            get
+            {
+                string sResult = string.Empty;
+                try
+                {
+                    string sApiKey = m_regkeyForApp.GetValue("DPW") as string;
+                    if (string.IsNullOrEmpty(sApiKey))
+                        return string.Empty;
+                    byte[] aryApiKey = Convert.FromBase64String(sApiKey);
+                    byte[] aryDecodedApiKey
+                        = ProtectedData.Unprotect(aryApiKey, g_aryAdditionalEntropy, DataProtectionScope.CurrentUser);
+                    sResult = Encoding.ASCII.GetString(aryDecodedApiKey);
+                }
+                catch(Exception ex)
+                {
+                    log.Error(ex);
+                }
+                return sResult;
+            }
+            set
+            {
+                byte[] aryApiKey = Encoding.ASCII.GetBytes(value);
+                byte[] aryEncodedApiKey
+                    = ProtectedData.Protect(aryApiKey, g_aryAdditionalEntropy, DataProtectionScope.CurrentUser);
+                string sEncodedApiKey = Convert.ToBase64String(aryEncodedApiKey);
+                m_regkeyForApp.SetValue("DPW", sEncodedApiKey);
+            }
+        }
+
         public string RedmineUrl
         {
             get
@@ -61,13 +137,22 @@ namespace RedmineTool
         {
             get
             {
-                string sApiKey = m_regkeyForApp.GetValue("ApiKey") as string;
-                if (string.IsNullOrEmpty(sApiKey))
-                    return string.Empty;
-                byte [] aryApiKey = Convert.FromBase64String(sApiKey);
-                byte [] aryDecodedApiKey 
-                    = ProtectedData.Unprotect(aryApiKey, g_aryAdditionalEntropy, DataProtectionScope.CurrentUser);
-                return Encoding.ASCII.GetString(aryDecodedApiKey);
+                string sResult = string.Empty;
+                try
+                {
+                    string sApiKey = m_regkeyForApp.GetValue("ApiKey") as string;
+                    if (string.IsNullOrEmpty(sApiKey))
+                        return string.Empty;
+                    byte[] aryApiKey = Convert.FromBase64String(sApiKey);
+                    byte[] aryDecodedApiKey
+                        = ProtectedData.Unprotect(aryApiKey, g_aryAdditionalEntropy, DataProtectionScope.CurrentUser);
+                    sResult = Encoding.ASCII.GetString(aryDecodedApiKey);
+                }
+                catch(Exception ex)
+                {
+                    log.Error(ex);
+                }
+                return sResult;
             }
             set
             {
@@ -198,10 +283,6 @@ namespace RedmineTool
                 return m_fontCollection;
             }
         }
-
-        
-
-        private IntPtr m_font = IntPtr.Zero;
 
         public ConfigManager()
         {
