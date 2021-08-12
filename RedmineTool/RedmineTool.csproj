@@ -99,109 +99,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigManager.cs" />
-    <Compile Include="Models\RedmineIssue.cs" />
-    <Compile Include="Models\RedmineIssueSimple.cs" />
-    <Compile Include="RedmineApi\Exceptions\ConflictException.cs" />
-    <Compile Include="RedmineApi\Exceptions\ForbiddenException.cs" />
-    <Compile Include="RedmineApi\Exceptions\InternalServerErrorException.cs" />
-    <Compile Include="RedmineApi\Exceptions\NameResolutionFailureException.cs" />
-    <Compile Include="RedmineApi\Exceptions\NotAcceptableException.cs" />
-    <Compile Include="RedmineApi\Exceptions\NotFoundException.cs" />
-    <Compile Include="RedmineApi\Exceptions\RedmineException.cs" />
-    <Compile Include="RedmineApi\Exceptions\RedmineTimeoutException.cs" />
-    <Compile Include="RedmineApi\Exceptions\UnauthorizedException.cs" />
-    <Compile Include="RedmineApi\Extensions\CollectionExtensions.cs" />
-    <Compile Include="RedmineApi\Extensions\ExtensionAttribute.cs" />
-    <Compile Include="RedmineApi\Extensions\JsonReaderExtensions.cs" />
-    <Compile Include="RedmineApi\Extensions\JsonWriterExtensions.cs" />
-    <Compile Include="RedmineApi\Extensions\NameValueCollectionExtensions.cs" />
-    <Compile Include="RedmineApi\Extensions\StringExtensions.cs" />
-    <Compile Include="RedmineApi\Extensions\WebExtensions.cs" />
-    <Compile Include="RedmineApi\Extensions\XmlReaderExtensions.cs" />
-    <Compile Include="RedmineApi\Extensions\XmlWriterExtensions.cs" />
-    <Compile Include="RedmineApi\HttpVerbs.cs" />
-    <Compile Include="RedmineApi\Internals\DataHelper.cs" />
-    <Compile Include="RedmineApi\Internals\Func.cs" />
-    <Compile Include="RedmineApi\Internals\HashCodeHelper.cs" />
-    <Compile Include="RedmineApi\Internals\UrlHelper.cs" />
-    <Compile Include="RedmineApi\Internals\WebApiAsyncHelper.cs" />
-    <Compile Include="RedmineApi\Internals\WebApiHelper.cs" />
-    <Compile Include="RedmineApi\Internals\XmlTextReaderBuilder.cs" />
-    <Compile Include="RedmineApi\IRedmineManager.cs" />
-    <Compile Include="RedmineApi\IRedmineWebClient.cs" />
-    <Compile Include="RedmineApi\MimeFormat.cs" />
-    <Compile Include="RedmineApi\RedirectType.cs" />
-    <Compile Include="RedmineApi\RedmineKeys.cs" />
-    <Compile Include="RedmineApi\RedmineManager.cs" />
-    <Compile Include="RedmineApi\RedmineManagerAsync45.cs" />
-    <Compile Include="RedmineApi\RedmineWebClient.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="RedmineApi\Serialization\CacheKeyFactory.cs" />
-    <Compile Include="RedmineApi\Serialization\IJsonSerializable.cs" />
-    <Compile Include="RedmineApi\Serialization\ISerialization.cs" />
-    <Compile Include="RedmineApi\Serialization\IXmlSerializerCache.cs" />
-    <Compile Include="RedmineApi\Serialization\JsonObject.cs" />
-    <Compile Include="RedmineApi\Serialization\JsonRedmineSerializer.cs" />
-    <Compile Include="RedmineApi\Serialization\PagedResults.cs" />
-    <Compile Include="RedmineApi\Serialization\XmlRedmineSerializer.cs" />
-    <Compile Include="RedmineApi\Serialization\XmlSerializerCache.cs" />
-    <Compile Include="RedmineApi\Types\Attachment.cs" />
-    <Compile Include="RedmineApi\Types\Attachments.cs" />
-    <Compile Include="RedmineApi\Types\ChangeSet.cs" />
-    <Compile Include="RedmineApi\Types\CustomField.cs" />
-    <Compile Include="RedmineApi\Types\CustomFieldPossibleValue.cs" />
-    <Compile Include="RedmineApi\Types\CustomFieldRole.cs" />
-    <Compile Include="RedmineApi\Types\CustomFieldValue.cs" />
-    <Compile Include="RedmineApi\Types\Detail.cs" />
-    <Compile Include="RedmineApi\Types\Error.cs" />
-    <Compile Include="RedmineApi\Types\File.cs" />
-    <Compile Include="RedmineApi\Types\Group.cs" />
-    <Compile Include="RedmineApi\Types\GroupUser.cs" />
-    <Compile Include="RedmineApi\Types\Identifiable.cs" />
-    <Compile Include="RedmineApi\Types\IdentifiableName.cs" />
-    <Compile Include="RedmineApi\Types\Issue.cs" />
-    <Compile Include="RedmineApi\Types\IssueAllowedStatus.cs" />
-    <Compile Include="RedmineApi\Types\IssueCategory.cs" />
-    <Compile Include="RedmineApi\Types\IssueChild.cs" />
-    <Compile Include="RedmineApi\Types\IssueCustomField.cs" />
-    <Compile Include="RedmineApi\Types\IssuePriority.cs" />
-    <Compile Include="RedmineApi\Types\IssueRelation.cs" />
-    <Compile Include="RedmineApi\Types\IssueRelationType.cs" />
-    <Compile Include="RedmineApi\Types\IssueStatus.cs" />
-    <Compile Include="RedmineApi\Types\IValue.cs" />
-    <Compile Include="RedmineApi\Types\Journal.cs" />
-    <Compile Include="RedmineApi\Types\Membership.cs" />
-    <Compile Include="RedmineApi\Types\MembershipRole.cs" />
-    <Compile Include="RedmineApi\Types\MyAccount.cs" />
-    <Compile Include="RedmineApi\Types\MyAccountCustomField.cs" />
-    <Compile Include="RedmineApi\Types\News.cs" />
-    <Compile Include="RedmineApi\Types\NewsComment.cs" />
-    <Compile Include="RedmineApi\Types\Permission.cs" />
-    <Compile Include="RedmineApi\Types\Project.cs" />
-    <Compile Include="RedmineApi\Types\ProjectEnabledModule.cs" />
-    <Compile Include="RedmineApi\Types\ProjectIssueCategory.cs" />
-    <Compile Include="RedmineApi\Types\ProjectMembership.cs" />
-    <Compile Include="RedmineApi\Types\ProjectStatus.cs" />
-    <Compile Include="RedmineApi\Types\ProjectTimeEntryActivity.cs" />
-    <Compile Include="RedmineApi\Types\ProjectTracker.cs" />
-    <Compile Include="RedmineApi\Types\Query.cs" />
-    <Compile Include="RedmineApi\Types\Role.cs" />
-    <Compile Include="RedmineApi\Types\Search.cs" />
-    <Compile Include="RedmineApi\Types\TimeEntry.cs" />
-    <Compile Include="RedmineApi\Types\TimeEntryActivity.cs" />
-    <Compile Include="RedmineApi\Types\Tracker.cs" />
-    <Compile Include="RedmineApi\Types\TrackerCustomField.cs" />
-    <Compile Include="RedmineApi\Types\Upload.cs" />
-    <Compile Include="RedmineApi\Types\User.cs" />
-    <Compile Include="RedmineApi\Types\UserGroup.cs" />
-    <Compile Include="RedmineApi\Types\UserStatus.cs" />
-    <Compile Include="RedmineApi\Types\Version.cs" />
-    <Compile Include="RedmineApi\Types\VersionSharing.cs" />
-    <Compile Include="RedmineApi\Types\VersionStatus.cs" />
-    <Compile Include="RedmineApi\Types\Watcher.cs" />
-    <Compile Include="RedmineApi\Types\WikiPage.cs" />
     <Compile Include="UI\FrmIssueListDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,12 +123,8 @@
     <Compile Include="UI\FrmSetupApiKeyDialog.Designer.cs">
       <DependentUpon>FrmSetupApiKeyDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\RedmineProject.cs" />
-    <Compile Include="Models\RedmineTracker.cs" />
-    <Compile Include="Models\RedmineUser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RedmineConnector.cs" />
     <EmbeddedResource Include="UI\FrmIssueListDialog.resx">
       <DependentUpon>FrmIssueListDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -281,7 +174,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RedmineTool.Common\RedmineTool.Common.csproj">
+      <Project>{ac99ec97-a75f-4517-bf86-eed26ff4bff4}</Project>
+      <Name>RedmineTool.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\helppage1.png" />
   </ItemGroup>
